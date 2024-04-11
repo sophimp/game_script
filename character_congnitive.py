@@ -28,6 +28,6 @@ for i in range(len(details['text'])):
 
 # 显示图像
 cv2.imshow('Image', image)
-cv2.imshow('GrayImage', gray)
+# cv2.imshow('GrayImage', gray)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

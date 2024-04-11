@@ -5,12 +5,14 @@ import time
 from PIL import ImageGrab
 from PIL import Image
 import pytesseract
+import cv2
+import game_logic as gameLogic
 
 def activate_window(title):
     hwnd = win32gui.FindWindow(None, title)
     if hwnd:
         win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
-        # win32gui.SetForegroundWindow(hwnd)
+        win32gui.SetForegroundWindow(hwnd)
         return hwnd
     return None
 
@@ -29,24 +31,34 @@ def click_window_center(hwnd):
     if position:
         x, y, w, h = position
 
+
 # 替换为您想要激活的窗口标题
 window_title = "武侠历险记"
 
 # 激活窗口
 hwnd = activate_window(window_title)
+time.sleep(0.3)
 window_rect = get_window_position(hwnd)
 x, y, width, height = window_rect
-print("窗口大小:", width, "x", height)
-# 截取窗口图像
-image = ImageGrab.grab(bbox=(x, y, x + width, y + height))
-image.save("screenshot.png")
+print("窗口大小:", width, "x", height, "x,y", x, y)
+wImage = ImageGrab.grab(bbox=(x, y, x + width, y + height))
 
-left_x = x + width * 0.01
-left_y = y + height // 2
+# 点击广告
+gameLogic.clickAd(winRect=window_rect, pilImage=wImage)
 
-right_x = x + width * 0.9
+# wImage.save("screenshot.png")
 
-testdata_dir_config = '--tessdata-dir "C:\\Program Files\\Tesseract-OCR\\tessdata"'
+# gameLogic.isFighting(winRect=window_rect)
+
+# cImage = gameLogic.coordinateImage(winRect=window_rect, pilImage=wImage)
+# cv2.imwrite("home.png", cImage)
+
+# cv2.imshow('Image', cImage)
+# # cv2.imshow('GrayImage', gray)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+# testdata_dir_config = '--tessdata-dir "C:\\Program Files\\Tesseract-OCR\\tessdata"'
 
 # 使用Tesseract进行文字识别
 # eng = pytesseract.image_to_string(image, lang='eng')
@@ -54,10 +66,10 @@ testdata_dir_config = '--tessdata-dir "C:\\Program Files\\Tesseract-OCR\\tessdat
 # print(eng)
 # print(chinese)
 
-image2 = Image.open('1.png')
-chinese2 = pytesseract.image_to_string(image, config=testdata_dir_config, lang='chi-sim')
-print(chinese2)
+# left_x = x + width * 0.01
+# left_y = y + height // 2
 
+# right_x = x + width * 0.9
 # while(True):
 #   activate_window(window_title)
 #   # image = ImageGrab.grab(bbox=(x, y, x + width, y + height))
