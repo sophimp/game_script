@@ -44,7 +44,7 @@ print("窗口大小:", width, "x", height, "x,y", x, y)
 wImage = ImageGrab.grab(bbox=(x, y, x + width, y + height))
 
 # 点击广告
-gameLogic.clickAd(winRect=window_rect, pilImage=wImage)
+gameLogic.clickAd(hwnd=hwnd, winRect=window_rect, pilImage=wImage)
 
 # wImage.save("screenshot.png")
 

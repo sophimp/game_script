@@ -7,6 +7,8 @@ from PIL import Image
 import numpy as np
 import pyautogui
 import time
+import win32gui
+import win32con
 
 # 配置Tesseract的路径
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # Windows示例路径
@@ -45,7 +47,16 @@ def coordinateImage(winRect, pilImage: Image):
       numpyImage = cv2.putText(numpyImage, f"{itemX}", (itemX, itemY + 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 1, cv2.LINE_AA)
   return numpyImage
 
-def clickAd(winRect, pilImage: Image): 
+def activeForgroundAndClick(hwnd, x : int, y : int, sleepTime : float):
+  win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
+  win32gui.SetForegroundWindow(hwnd)
+  time.sleep(0.2)
+  pyautogui.click(x, y)
+  if sleepTime > 0:
+    time.sleep(sleepTime)
+
+
+def clickAd(hwnd, winRect, pilImage: Image): 
   # 点击图片调试
   numpyImage = np.array(pilImage)
   x, y, width, height = winRect
@@ -69,30 +80,20 @@ def clickAd(winRect, pilImage: Image):
   # numpyImage = cv2.rectangle(numpyImage, (closeX, closeY), (closeX + 10 , closeY + 10 ), (0, 255, 0), 2)
   # cv2.imwrite("click_ad.png", numpyImage)
 
-  for i in range(0,5):
-    pyautogui.click(boxX + x, boxY + y)
-    time.sleep(0.3)
-    pyautogui.click(adX + x, adY + y)
-    time.sleep(16)
-    pyautogui.click(closeX + x, closeY + y)
-    time.sleep(0.3)
-    pyautogui.click(adX + x, adY + y)
-    time.sleep(16)
-    pyautogui.click(closeX + x, closeY + y)
-    time.sleep(0.3)
-    pyautogui.click(boxX + x, boxY + y)
-    pyautogui.click(adX + x, adY + y)
-    time.sleep(16)
-    pyautogui.click(closeX + x, closeY + y)
-    time.sleep(0.3)
-    pyautogui.click(adX + x, adY + y)
-    time.sleep(16)
-    pyautogui.click(closeX + x, closeY + y)
-    time.sleep(0.3)
+  for i in range(1,8):
+    activeForgroundAndClick(hwnd, boxX + x, boxY + y, 0.3)
+    activeForgroundAndClick(hwnd, adX + x, adY + y, 16)
+    activeForgroundAndClick(hwnd,closeX + x, closeY + y, 0.3)
+    activeForgroundAndClick(hwnd, adX + x, adY + y, 16)
+    activeForgroundAndClick(hwnd, closeX + x, closeY + y, 0.3)
+    activeForgroundAndClick(hwnd, boxX + x, boxY + y, 0.3)
+    activeForgroundAndClick(hwnd, adX + x, adY + y, 16)
+    activeForgroundAndClick(hwnd, closeX + x, closeY + y, 0.3)
+    activeForgroundAndClick(hwnd, adX + x, adY + y, 16)
+    activeForgroundAndClick(hwnd, closeX + x, closeY + y, 0.3)
 
-  for i in range(0, 5):
-    time.sleep(61)
-    pyautogui.click(boxX + x, boxY + y)
+  for i in range(1, 6):
+    activeForgroundAndClick(boxX + x, boxY + y, 61)
 
 
 
