@@ -82,14 +82,18 @@ def clickAd(hwnd, winRect, pilImage: Image):
 
   for i in range(1,8):
     activeForgroundAndClick(hwnd, boxX + x, boxY + y, 0.3)
-    activeForgroundAndClick(hwnd, adX + x, adY + y, 16)
+    activeForgroundAndClick(hwnd, adX + x, adY + y, 0.8)
+    activeForgroundAndClick(hwnd,closeX + x - 38, closeY + y, 15)
     activeForgroundAndClick(hwnd,closeX + x, closeY + y, 0.3)
-    activeForgroundAndClick(hwnd, adX + x, adY + y, 16)
+    activeForgroundAndClick(hwnd, adX + x, adY + y, 0.8)
+    activeForgroundAndClick(hwnd,closeX + x - 38, closeY + y, 15)
     activeForgroundAndClick(hwnd, closeX + x, closeY + y, 0.3)
     activeForgroundAndClick(hwnd, boxX + x, boxY + y, 0.3)
-    activeForgroundAndClick(hwnd, adX + x, adY + y, 16)
+    activeForgroundAndClick(hwnd, adX + x, adY + y, 0.8)
+    activeForgroundAndClick(hwnd,closeX + x - 38, closeY + y, 15)
     activeForgroundAndClick(hwnd, closeX + x, closeY + y, 0.3)
-    activeForgroundAndClick(hwnd, adX + x, adY + y, 16)
+    activeForgroundAndClick(hwnd, adX + x, adY + y, 0.8)
+    activeForgroundAndClick(hwnd,closeX + x - 38, closeY + y, 15)
     activeForgroundAndClick(hwnd, closeX + x, closeY + y, 0.3)
 
   for i in range(1, 6):
