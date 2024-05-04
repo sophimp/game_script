@@ -9,6 +9,7 @@ import pyautogui
 import time
 import win32gui
 import win32con
+import random
 
 # 配置Tesseract的路径
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # Windows示例路径
@@ -48,6 +49,7 @@ def coordinateImage(winRect, pilImage: Image):
   return numpyImage
 
 def activeForgroundAndClick(hwnd, x : int, y : int, sleepTime : float):
+  print("click: (", x, ",", y , ")")
   win32gui.ShowWindow(hwnd, win32con.SW_RESTORE)
   win32gui.SetForegroundWindow(hwnd)
   time.sleep(0.2)
@@ -99,7 +101,17 @@ def clickAd(hwnd, winRect, pilImage: Image):
   for i in range(1, 6):
     activeForgroundAndClick(boxX + x, boxY + y, 61)
 
-
+def fighting(hwnd, winRect):
+  x, y, width, height = winRect
+  itemWidth, itemHeight = mapItemSize(width, height)
+  leftX = x + 2*itemWidth
+  rightX = x + 11 * itemHeight
+  count = 0
+  while True:
+    activeForgroundAndClick(hwnd, leftX if(count % 2 == 0)  else rightX , y + itemHeight * random.randint(4,5), 2)
+    count += 1
+    if (count > 65530):
+      count = 0
 
 # 使用Tesseract进行文字识别
 # output_type参数设置为Output.DICT，以便获取详细的识别结果
